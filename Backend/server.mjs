@@ -1,14 +1,24 @@
-// Adaptador de desarrollo: para producción inyectar autenticación real en createAPIHandler.
+
+// Modo personal: un único usuario con token privado; no distribuir este token en una app pública.
+// Para varios usuarios, integrar sesiones individuales en createAPIHandler.
 import { createServer } from 'node:http';
 import { timingSafeEqual } from 'node:crypto';
 import { Readable } from 'node:stream';
 import { createAPIHandler } from './api-handler.mjs';
 
-const token = process.env.NUTRITRACK_DEV_TOKEN;
-if (process.env.NODE_ENV === 'production') {
-  throw new Error('Integra api-handler.mjs con autenticación real de usuarios antes de desplegar.');
+const personalMode = process.env.NUTRITRACK_AUTH_MODE === 'personal';
+if (process.env.NODE_ENV === 'production' && !personalMode) {
+  throw new Error('Configura NUTRITRACK_AUTH_MODE=personal para uso privado, o integra sesiones de usuarios.');
 }
-if (!token || token.length < 24) throw new Error('Define NUTRITRACK_DEV_TOKEN con al menos 24 caracteres.');
+const tokenName = personalMode ? 'NUTRITRACK_PERSONAL_TOKEN' : 'NUTRITRACK_DEV_TOKEN';
+const token = process.env[tokenName];
+const minimumLength = personalMode ? 32 : 24;
+if (!token || token.length < minimumLength || /\s/.test(token)) {
+  throw new Error(`Define ${tokenName} con al menos ${minimumLength} caracteres y sin espacios.`);
+}
+if (personalMode && !process.env.OPENAI_API_KEY?.trim()) {
+  throw new Error('Define OPENAI_API_KEY en las variables del servidor.');
+}
 const expected = Buffer.from('Bearer ' + token);
 const handler = createAPIHandler({
   apiKey: process.env.OPENAI_API_KEY,
@@ -18,7 +28,7 @@ const handler = createAPIHandler({
   authenticate: async request => {
     const supplied = Buffer.from(request.headers.get('authorization') || '');
     return supplied.length === expected.length && timingSafeEqual(supplied, expected)
-      ? { id: 'development-user' } : null;
+      ? { id: personalMode ? 'personal-user' : 'development-user' } : null;
   }
 });
 
@@ -49,4 +59,8 @@ server.headersTimeout = 15000;
 server.requestTimeout = 55000;
 server.keepAliveTimeout = 5000;
 const port = Number(process.env.PORT || 8787);
-server.listen(port, '127.0.0.1', () => console.log('NutriTrack 4.0, desarrollo: http://127.0.0.1:' + port));
+const host = personalMode ? '0.0.0.0' : '127.0.0.1';
+server.listen(port, host, () => console.log(
+  `NutriTrack 4.0: ${personalMode ? 'uso personal' : 'desarrollo'}, puerto ${server.address().port}`
+));
+
