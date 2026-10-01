@@ -55,11 +55,11 @@ async function limitedBody(request) {
 export function createAPIHandler({
   apiKey, model, workoutModel = model, planModel = workoutModel, recipeModel = planModel, authenticate, fetchImpl = fetch, limiter = new RequestLimiter(),
   now = Date.now, cacheTTL = 300000, cacheCapacity = 200, maximumConcurrent = 4,
-  providerTimeoutMS = 40000
+  providerTimeoutMS = 40000, onVisionDiagnostic = () => {}
 }) {
   if (typeof authenticate !== 'function') throw new Error('Falta autenticación de usuarios.');
   const provider = apiKey ? createVisionHandler({
-    apiKey, model, authenticate: async () => true, fetchImpl, timeoutMS: providerTimeoutMS
+    apiKey, model, authenticate: async () => true, fetchImpl, timeoutMS: providerTimeoutMS, onDiagnostic: onVisionDiagnostic
   }) : null;
   const workoutProvider = apiKey ? createWorkoutHandler({ apiKey, model: workoutModel, fetchImpl, timeoutMS: providerTimeoutMS }) : null;
   const planProvider = apiKey ? createPlanHandler({ apiKey, model: planModel, fetchImpl, timeoutMS: providerTimeoutMS }) : null;
@@ -124,7 +124,7 @@ export function createAPIHandler({
     active++; pending.set(key, fingerprint);
     try {
       const normalized = new Request(request.url, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body, signal: request.signal
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Request-ID': requestID }, body, signal: request.signal
       });
       const result = await selectedProvider(normalized);
       const payload = await result.json();

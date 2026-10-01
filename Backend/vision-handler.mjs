@@ -1,4 +1,4 @@
-import { validFoodContext, analysisSchema, validAnalysis, scalePortion, contextInstructions } from './food-context.mjs';
+import { validFoodContext, analysisSchema, analysisIssue, scalePortion, contextInstructions } from './food-context.mjs';
 import { readFileSync } from 'node:fs';
 
 export const SYSTEM_PROMPT = readFileSync(
@@ -40,7 +40,9 @@ export function validEstimate(value) {
 }
 
 export function buildProviderRequest(imageBase64, model, context = null) {
-  const schema = context ? { ...responseSchema, required: [...responseSchema.required, 'analysis'], properties: { ...responseSchema.properties, analysis: analysisSchema } } : responseSchema;
+  // Structured Outputs follows property order. Identify components before estimating totals.
+  const { is_food, summary, ...nutrients } = responseSchema.properties;
+  const schema = context ? { ...responseSchema, required: [...responseSchema.required, 'analysis'], properties: { is_food, summary, analysis: analysisSchema, ...nutrients } } : responseSchema;
   return {
     model,
     store: false,
@@ -55,6 +57,20 @@ export function buildProviderRequest(imageBase64, model, context = null) {
     text: { format: { type: 'json_schema', name: context ? 'food_analysis_v2' : 'food_analysis_v1', strict: true, schema } },
     max_output_tokens: context ? 3500 : 1200
   };
+}
+
+function correctionInstructions(reason) {
+  const explanation = {
+    totals_mismatch: 'Los totales no coincidieron con la suma de los alimentos.',
+    energy_mismatch: 'Las calorías no fueron coherentes con las proteínas, carbohidratos y grasas.',
+    weight_mismatch: 'Los gramos de los alimentos no coincidieron con el peso medido.',
+    invalid_range: 'El rango de calorías no contenía la estimación central.',
+    invalid_items: 'Faltaron alimentos válidos con cantidades positivas.',
+    invalid_shape: 'El desglose no respetó el formato requerido.',
+    invalid_estimate: 'Los valores base no respetaron el formato o los límites requeridos.'
+  };
+  return '\nREVISIÓN DE VALIDACIÓN: ' + explanation[reason]
+    + ' Analiza la misma foto de nuevo. Calcula primero cada alimento en analysis.items y suma sus calorías y macros para llenar los totales, sin estimar un total independiente. Comprueba la relación 4/4/9, el peso conocido y que calorieLow <= calories <= calorieHigh. Si no se distingue comida, devuelve is_food=false. No inventes un resultado para superar la validación.';
 }
 
 async function readLimitedJSON(request) {
@@ -78,7 +94,7 @@ async function readLimitedJSON(request) {
  * Inyecta rate limiting/cuotas por usuario en esa capa antes de llamar al proveedor.
  * No registra cuerpos, fotos, tokens ni respuestas del proveedor.
  */
-export function createVisionHandler({ apiKey, model = 'gpt-4o-mini', authenticate, fetchImpl = fetch, timeoutMS = 40000 }) {
+export function createVisionHandler({ apiKey, model = 'gpt-4o-mini', authenticate, fetchImpl = fetch, timeoutMS = 40000, onDiagnostic = () => {} }) {
   if (!apiKey || typeof authenticate !== 'function') throw new Error('Faltan credenciales o autenticación.');
   return async function handle(request) {
     if (new URL(request.url).pathname !== '/v1/food/analyze') return json({ error: 'not_found' }, 404);
@@ -111,37 +127,52 @@ export function createVisionHandler({ apiKey, model = 'gpt-4o-mini', authenticat
     request.signal.addEventListener('abort', cancel, { once: true });
     if (request.signal.aborted) controller.abort();
     try {
-      const upstream = await fetchImpl('https://api.openai.com/v1/responses', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(buildProviderRequest(body.image_base64, model, context)),
-        signal: controller.signal
-      });
-      if (!upstream.ok) return json({ error: 'provider_unavailable' }, upstream.status === 429 ? 429 : 502);
-      const reader = upstream.body?.getReader();
-      if (!reader) return json({ error: 'invalid_analysis' }, 502);
-      const parts = []; let responseSize = 0;
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        responseSize += value.byteLength;
-        if (responseSize > 512000) { await reader.cancel(); return json({ error: 'invalid_analysis' }, 502); }
-        parts.push(Buffer.from(value));
+      const attempts = context ? 2 : 1;
+      let previousIssue;
+      for (let attempt = 1; attempt <= attempts; attempt++) {
+        controller.signal.throwIfAborted();
+        const providerRequest = buildProviderRequest(body.image_base64, model, context);
+        if (previousIssue) providerRequest.instructions += correctionInstructions(previousIssue);
+        const upstream = await fetchImpl('https://api.openai.com/v1/responses', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify(providerRequest),
+          signal: controller.signal
+        });
+        if (!upstream.ok) return json({ error: 'provider_unavailable' }, upstream.status === 429 ? 429 : 502);
+        const reader = upstream.body?.getReader();
+        if (!reader) return json({ error: 'invalid_analysis' }, 502);
+        const parts = []; let responseSize = 0;
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          responseSize += value.byteLength;
+          if (responseSize > 512000) { await reader.cancel(); return json({ error: 'invalid_analysis' }, 502); }
+          parts.push(Buffer.from(value));
+        }
+        const response = JSON.parse(Buffer.concat(parts).toString('utf8'));
+        if (response.status !== 'completed' || !Array.isArray(response.output)) return json({ error: 'incomplete_analysis' }, 502);
+        // HTTP crudo: output_text del SDK no es un campo que debamos asumir en el JSON.
+        const content = (response.output ?? []).filter(item => item.type === 'message')
+          .flatMap(item => Array.isArray(item.content) ? item.content : []);
+        if (content.some(item => item.type === 'refusal')) return json({ error: 'analysis_unavailable' }, 502);
+        const text = content.filter(item => item.type === 'output_text').map(item => item.text).join('');
+        controller.signal.throwIfAborted();
+        let result;
+        try { result = JSON.parse(text); } catch { result = null; }
+        const { analysis, ...base } = result ?? {};
+        const issue = !validEstimate(context ? base : result) ? 'invalid_estimate' : context ? analysisIssue(result, context) : null;
+        if (issue) {
+          const suppliedID = request.headers.get('x-request-id') || '';
+          try { onDiagnostic({ event: 'food_analysis_validation', reason: issue, attempt,
+            request_id: /^[A-Za-z0-9-]{8,80}$/.test(suppliedID) ? suppliedID : null }); } catch { /* Diagnostics cannot block the analysis. */ }
+          if (attempt === attempts) return json({ error: 'invalid_analysis' }, 502);
+          previousIssue = issue;
+          continue;
+        }
+        if (!result.is_food) return json({ error: 'no_food' }, 422);
+        return json(context ? scalePortion(result, context.consumedFraction) : result);
       }
-      const response = JSON.parse(Buffer.concat(parts).toString('utf8'));
-      if (response.status !== 'completed' || !Array.isArray(response.output)) return json({ error: 'incomplete_analysis' }, 502);
-      // HTTP crudo: output_text del SDK no es un campo que debamos asumir en el JSON.
-      const content = (response.output ?? []).filter(item => item.type === 'message')
-        .flatMap(item => Array.isArray(item.content) ? item.content : []);
-      if (content.some(item => item.type === 'refusal')) return json({ error: 'analysis_unavailable' }, 502);
-      const text = content.filter(item => item.type === 'output_text').map(item => item.text).join('');
-      let result;
-      try { result = JSON.parse(text); } catch { return json({ error: 'invalid_analysis' }, 502); }
-      const { analysis, ...base } = result ?? {};
-      if (context && !validAnalysis(result, context)) return json({ error: 'invalid_analysis' }, 502);
-      if (!validEstimate(context ? base : result)) return json({ error: 'invalid_analysis' }, 502);
-      if (!result.is_food) return json({ error: 'no_food' }, 422);
-      return json(context ? scalePortion(result, context.consumedFraction) : result);
     } catch {
       return json({ error: controller.signal.aborted ? 'analysis_timeout' : 'provider_unavailable' }, 502);
     } finally {

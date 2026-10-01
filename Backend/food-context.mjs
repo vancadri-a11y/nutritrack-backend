@@ -10,32 +10,36 @@ export const analysisSchema = {
   type: 'object', additionalProperties: false,
   required: ['items', 'calorieLow', 'calorieHigh', 'question'],
   properties: {
-    calorieLow: number(10000), calorieHigh: number(10000), question: { type: 'string', maxLength: 300 },
     items: { type: 'array', minItems: 0, maxItems: 12, items: {
       type: 'object', additionalProperties: false, required: ['name', 'grams', 'calories', 'protein', 'carbs', 'fat'],
-      properties: { name: { type: 'string', minLength: 1, maxLength: 100 }, grams: number(5000), calories: number(10000),
+      properties: { name: { type: 'string', minLength: 1, maxLength: 100 }, grams: { ...number(5000), exclusiveMinimum: 0 }, calories: number(10000),
         protein: number(1000), carbs: number(1000), fat: number(1000) }
-    } }
+    } },
+    calorieLow: number(10000), calorieHigh: number(10000), question: { type: 'string', maxLength: 300 }
   }
 };
-export function validAnalysis(result, context) {
-  if (!result || typeof result !== "object" || Array.isArray(result)) return false;
+/** A fixed reason code for correction and logging; never contains photo data or provider text. */
+export function analysisIssue(result, context) {
+  if (!result || typeof result !== "object" || Array.isArray(result)) return 'invalid_shape';
   const a = result.analysis;
   if (!a || Object.keys(a).length !== 4 || !Array.isArray(a.items) || a.items.length > 12
-    || typeof a.question !== 'string' || a.question.length > 300) return false;
+    || typeof a.question !== 'string' || a.question.length > 300) return 'invalid_shape';
   if (![a.calorieLow, a.calorieHigh].every(n => Number.isFinite(n) && n >= 0 && n <= 10000)
-    || a.calorieLow > result.calories || a.calorieHigh < result.calories) return false;
-  if (!result.is_food) return true;
+    || a.calorieLow > result.calories || a.calorieHigh < result.calories) return 'invalid_range';
+  if (!result.is_food) return null;
   if (a.items.length === 0 || !a.items.every(i => i && Object.keys(i).length === 6
     && typeof i.name === 'string' && i.name.trim().length > 0 && i.name.length <= 100
     && Number.isFinite(i.grams) && i.grams > 0 && i.grams <= 5000
-    && ['calories', 'protein', 'carbs', 'fat'].every(k => Number.isFinite(i[k]) && i[k] >= 0 && i[k] <= (k === 'calories' ? 10000 : 1000)))) return false;
+    && ['calories', 'protein', 'carbs', 'fat'].every(k => Number.isFinite(i[k]) && i[k] >= 0 && i[k] <= (k === 'calories' ? 10000 : 1000)))) return 'invalid_items';
   for (const key of ['calories', 'protein', 'carbs', 'fat']) {
-    if (Math.abs(a.items.reduce((sum, i) => sum + i[key], 0) - result[key]) > Math.max(2, result[key] * 0.05)) return false;
+    if (Math.abs(a.items.reduce((sum, i) => sum + i[key], 0) - result[key]) > Math.max(2, result[key] * 0.05)) return 'totals_mismatch';
   }
-  if (Math.abs(4 * result.protein + 4 * result.carbs + 9 * result.fat - result.calories) > Math.max(30, result.calories * 0.2)) return false;
-  if (context.measuredGrams != null && Math.abs(a.items.reduce((s, i) => s + i.grams, 0) - context.measuredGrams) > Math.max(5, context.measuredGrams * 0.05)) return false;
-  return true;
+  if (Math.abs(4 * result.protein + 4 * result.carbs + 9 * result.fat - result.calories) > Math.max(30, result.calories * 0.2)) return 'energy_mismatch';
+  if (context.measuredGrams != null && Math.abs(a.items.reduce((s, i) => s + i.grams, 0) - context.measuredGrams) > Math.max(5, context.measuredGrams * 0.05)) return 'weight_mismatch';
+  return null;
+}
+export function validAnalysis(result, context) {
+  return analysisIssue(result, context) === null;
 }
 export function scalePortion(result, fraction) {
   const output = structuredClone(result);

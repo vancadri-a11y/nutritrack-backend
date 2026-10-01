@@ -26,6 +26,7 @@ const handler = createAPIHandler({
   workoutModel: process.env.OPENAI_WORKOUT_MODEL || process.env.OPENAI_MODEL || 'gpt-4o-mini',
   planModel: process.env.OPENAI_PLAN_MODEL || process.env.OPENAI_MODEL || 'gpt-4o-mini',
   recipeModel: process.env.OPENAI_RECIPE_MODEL || process.env.OPENAI_PLAN_MODEL || process.env.OPENAI_MODEL || 'gpt-4o-mini',
+  onVisionDiagnostic: entry => console.warn(JSON.stringify(entry)),
   authenticate: async request => {
     const supplied = Buffer.from(request.headers.get('authorization') || '');
     return supplied.length === expected.length && timingSafeEqual(supplied, expected)
@@ -64,4 +65,3 @@ const host = personalMode ? '0.0.0.0' : '127.0.0.1';
 server.listen(port, host, () => console.log(
   `NutriTrack 5.0: ${personalMode ? 'uso personal' : 'desarrollo'}, puerto ${server.address().port}`
 ));
-
