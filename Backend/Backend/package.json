@@ -1,0 +1,10 @@
+{
+  "name": "nutritrack-vision-reference",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test"
+  }
+}
