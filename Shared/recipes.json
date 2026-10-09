@@ -1,0 +1,351 @@
+{
+  "version": "2.0",
+  "recipes": [
+    {
+      "id": "avena-frutos-rojos",
+      "title": "Avena con frutos rojos",
+      "subtitle": "Un desayuno cremoso, fresco y fácil.",
+      "category": "desayuno",
+      "imageName": "FoodOats",
+      "minutes": 10,
+      "protein": 22,
+      "carbs": 51,
+      "fat": 12,
+      "tags": [
+        "Vegetariana",
+        "Rápida"
+      ],
+      "allergens": "Leche y nueces. Revisa el etiquetado de la avena.",
+      "ingredients": [
+        {
+          "name": "Avena",
+          "quantity": 45,
+          "unit": "g"
+        },
+        {
+          "name": "Yogur natural",
+          "quantity": 150,
+          "unit": "g"
+        },
+        {
+          "name": "Frutos rojos",
+          "quantity": 100,
+          "unit": "g"
+        },
+        {
+          "name": "Nueces",
+          "quantity": 10,
+          "unit": "g"
+        }
+      ],
+      "steps": [
+        "Hidrata la avena con agua durante unos minutos.",
+        "Mezcla con el yogur y añade los frutos rojos lavados.",
+        "Termina con las nueces troceadas. Ajusta la textura con agua."
+      ],
+      "calories": 400
+    },
+    {
+      "id": "bowl-pollo",
+      "title": "Bowl de pollo y verduras",
+      "subtitle": "Una comida completa que puedes preparar con antelación.",
+      "category": "comida",
+      "imageName": "FoodSalad",
+      "minutes": 25,
+      "protein": 38,
+      "carbs": 56,
+      "fat": 16,
+      "tags": [
+        "Con proteína",
+        "Para llevar"
+      ],
+      "allergens": "Revisa los ingredientes de cualquier salsa que añadas.",
+      "ingredients": [
+        {
+          "name": "Pechuga de pollo cocida",
+          "quantity": 120,
+          "unit": "g"
+        },
+        {
+          "name": "Arroz integral cocido",
+          "quantity": 150,
+          "unit": "g"
+        },
+        {
+          "name": "Verduras variadas",
+          "quantity": 180,
+          "unit": "g"
+        },
+        {
+          "name": "Aceite de oliva",
+          "quantity": 10,
+          "unit": "ml"
+        }
+      ],
+      "steps": [
+        "Prepara el arroz según su envase.",
+        "Cocina completamente el pollo y córtalo en tiras.",
+        "Lava y corta las verduras; sirve junto con el arroz.",
+        "Añade el aceite y sazona a tu gusto."
+      ],
+      "calories": 520
+    },
+    {
+      "id": "salmon-arroz",
+      "title": "Salmón con arroz y brócoli",
+      "subtitle": "Una cena sencilla con verduras al vapor.",
+      "category": "cena",
+      "imageName": "FoodSalmon",
+      "minutes": 25,
+      "protein": 35,
+      "carbs": 42,
+      "fat": 22,
+      "tags": [
+        "Con proteína",
+        "Al horno"
+      ],
+      "allergens": "Pescado.",
+      "ingredients": [
+        {
+          "name": "Salmón",
+          "quantity": 140,
+          "unit": "g"
+        },
+        {
+          "name": "Arroz cocido",
+          "quantity": 120,
+          "unit": "g"
+        },
+        {
+          "name": "Brócoli",
+          "quantity": 180,
+          "unit": "g"
+        },
+        {
+          "name": "Aceite de oliva",
+          "quantity": 5,
+          "unit": "ml"
+        }
+      ],
+      "steps": [
+        "Hornea el salmón hasta que esté completamente cocido.",
+        "Cocina el brócoli al vapor y prepara el arroz.",
+        "Sirve todo junto y añade el aceite y limón al gusto."
+      ],
+      "calories": 506
+    },
+    {
+      "id": "yogur-fruta",
+      "title": "Yogur, fruta y almendras",
+      "subtitle": "Una colación que se prepara en cinco minutos.",
+      "category": "colacion",
+      "imageName": "FoodFruit",
+      "minutes": 5,
+      "protein": 17,
+      "carbs": 27,
+      "fat": 10,
+      "tags": [
+        "Vegetariana",
+        "Sin cocción"
+      ],
+      "allergens": "Leche y almendras.",
+      "ingredients": [
+        {
+          "name": "Yogur natural",
+          "quantity": 170,
+          "unit": "g"
+        },
+        {
+          "name": "Fruta de temporada",
+          "quantity": 120,
+          "unit": "g"
+        },
+        {
+          "name": "Almendras",
+          "quantity": 15,
+          "unit": "g"
+        }
+      ],
+      "steps": [
+        "Lava la fruta y córtala en trozos pequeños.",
+        "Sirve sobre el yogur y añade las almendras."
+      ],
+      "calories": 266
+    },
+    {
+      "id": "ensalada-garbanzos",
+      "title": "Ensalada de garbanzos",
+      "subtitle": "Legumbres y verduras para una comida colorida.",
+      "category": "comida",
+      "imageName": "FoodSalad",
+      "minutes": 15,
+      "protein": 18,
+      "carbs": 54,
+      "fat": 16,
+      "tags": [
+        "Vegetal",
+        "Para llevar"
+      ],
+      "allergens": "Revisa los ingredientes del aderezo.",
+      "ingredients": [
+        {
+          "name": "Garbanzos cocidos",
+          "quantity": 160,
+          "unit": "g"
+        },
+        {
+          "name": "Tomate",
+          "quantity": 100,
+          "unit": "g"
+        },
+        {
+          "name": "Pepino",
+          "quantity": 100,
+          "unit": "g"
+        },
+        {
+          "name": "Aceite de oliva",
+          "quantity": 10,
+          "unit": "ml"
+        },
+        {
+          "name": "Limón",
+          "quantity": 0.5,
+          "unit": "pieza"
+        }
+      ],
+      "steps": [
+        "Enjuaga y escurre los garbanzos.",
+        "Lava y corta el tomate y el pepino.",
+        "Mezcla con aceite y limón. Refrigera si no la vas a consumir de inmediato."
+      ],
+      "calories": 432
+    },
+    {
+      "id": "avena-platano",
+      "title": "Avena con plátano y canela",
+      "subtitle": "Una alternativa tibia para comenzar el día.",
+      "category": "desayuno",
+      "imageName": "FoodOats",
+      "minutes": 12,
+      "protein": 16,
+      "carbs": 61,
+      "fat": 10,
+      "tags": [
+        "Vegetariana",
+        "Rápida"
+      ],
+      "allergens": "Leche. Revisa el etiquetado de la avena.",
+      "ingredients": [
+        {
+          "name": "Avena",
+          "quantity": 50,
+          "unit": "g"
+        },
+        {
+          "name": "Leche",
+          "quantity": 200,
+          "unit": "ml"
+        },
+        {
+          "name": "Plátano",
+          "quantity": 80,
+          "unit": "g"
+        },
+        {
+          "name": "Semillas",
+          "quantity": 10,
+          "unit": "g"
+        }
+      ],
+      "steps": [
+        "Calienta la avena con la leche a fuego bajo, removiendo.",
+        "Añade el plátano en rodajas.",
+        "Sirve con canela al gusto y las semillas."
+      ],
+      "calories": 398
+    },
+    {
+      "id": "ensalada-cena",
+      "title": "Ensalada de frijoles y aguacate",
+      "subtitle": "Una cena vegetal con ingredientes cotidianos.",
+      "category": "cena",
+      "imageName": "FoodSalad",
+      "minutes": 15,
+      "protein": 17,
+      "carbs": 48,
+      "fat": 18,
+      "tags": [
+        "Vegetal",
+        "Sin cocción"
+      ],
+      "allergens": "Revisa las tortillas y los frijoles envasados.",
+      "ingredients": [
+        {
+          "name": "Frijoles cocidos",
+          "quantity": 150,
+          "unit": "g"
+        },
+        {
+          "name": "Aguacate",
+          "quantity": 60,
+          "unit": "g"
+        },
+        {
+          "name": "Hojas verdes",
+          "quantity": 60,
+          "unit": "g"
+        },
+        {
+          "name": "Tomate",
+          "quantity": 100,
+          "unit": "g"
+        },
+        {
+          "name": "Tortilla de maíz",
+          "quantity": 2,
+          "unit": "piezas"
+        }
+      ],
+      "steps": [
+        "Lava las verduras y corta el tomate y el aguacate.",
+        "Mezcla con los frijoles cocidos.",
+        "Acompaña con las tortillas y sazona al gusto."
+      ],
+      "calories": 422
+    },
+    {
+      "id": "fruta-nueces",
+      "title": "Fruta fresca con nueces",
+      "subtitle": "Una pausa sencilla para tu día.",
+      "category": "colacion",
+      "imageName": "FoodFruit",
+      "minutes": 5,
+      "protein": 4,
+      "carbs": 25,
+      "fat": 12,
+      "tags": [
+        "Vegetal",
+        "Rápida"
+      ],
+      "allergens": "Nueces.",
+      "ingredients": [
+        {
+          "name": "Fruta de temporada",
+          "quantity": 160,
+          "unit": "g"
+        },
+        {
+          "name": "Nueces",
+          "quantity": 18,
+          "unit": "g"
+        }
+      ],
+      "steps": [
+        "Lava y corta la fruta que prefieras.",
+        "Acompaña con las nueces y sirve."
+      ],
+      "calories": 224
+    }
+  ]
+}
