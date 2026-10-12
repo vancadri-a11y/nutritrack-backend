@@ -1,0 +1,133 @@
+Test Suite 'All tests' started at 2026-10-11 22:58:34.852.
+Test Suite 'NutriTrackAITests.xctest' started at 2026-10-11 22:58:34.852.
+Test Suite 'AIConnectionTests' started at 2026-10-11 22:58:34.852.
+Test Case '-[NutriTrackAITests.AIConnectionTests testConnectionSurvivesRestartAndRejectsProviderKey]' started.
+Test Case '-[NutriTrackAITests.AIConnectionTests testConnectionSurvivesRestartAndRejectsProviderKey]' passed (0.012 seconds).
+Test Suite 'AIConnectionTests' passed at 2026-10-11 22:58:34.868.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.012 (0.016) seconds
+Test Suite 'AccountV57Tests' started at 2026-10-11 22:58:34.868.
+Test Case '-[NutriTrackAITests.AccountV57Tests testConfirmedDeletionCanFinishLocalCleanupAfterRestart]' started.
+Test Case '-[NutriTrackAITests.AccountV57Tests testConfirmedDeletionCanFinishLocalCleanupAfterRestart]' passed (0.039 seconds).
+Test Case '-[NutriTrackAITests.AccountV57Tests testMealPhotoSurvivesEditingAndAccountCascadeRemovesRecords]' started.
+Test Case '-[NutriTrackAITests.AccountV57Tests testMealPhotoSurvivesEditingAndAccountCascadeRemovesRecords]' passed (0.030 seconds).
+Test Case '-[NutriTrackAITests.AccountV57Tests testOldRenderAddressMigratesButCustomAddressRemains]' started.
+Test Case '-[NutriTrackAITests.AccountV57Tests testOldRenderAddressMigratesButCustomAddressRemains]' passed (0.004 seconds).
+Test Case '-[NutriTrackAITests.AccountV57Tests testRecoveryLinkAcceptsOnlyRecoveryAndRejectsDuplicatesOrOtherHosts]' started.
+Test Case '-[NutriTrackAITests.AccountV57Tests testRecoveryLinkAcceptsOnlyRecoveryAndRejectsDuplicatesOrOtherHosts]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.AccountV57Tests testRecoveryUsesTemporarySessionWithoutSwitchingCurrentAccount]' started.
+Test Case '-[NutriTrackAITests.AccountV57Tests testRecoveryUsesTemporarySessionWithoutSwitchingCurrentAccount]' passed (0.032 seconds).
+Test Suite 'AccountV57Tests' passed at 2026-10-11 22:58:34.977.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.107 (0.108) seconds
+Test Suite 'HTTPClientTests' started at 2026-10-11 22:58:34.977.
+Test Case '-[NutriTrackAITests.HTTPClientTests testExplicitRetryAfterFailedAnalysisUsesNewKeyAndThenKeepsSuccessKey]' started.
+Test Case '-[NutriTrackAITests.HTTPClientTests testExplicitRetryAfterFailedAnalysisUsesNewKeyAndThenKeepsSuccessKey]' passed (0.006 seconds).
+Test Case '-[NutriTrackAITests.HTTPClientTests testPlanRoundTripAndInsecureEndpointRejected]' started.
+Test Case '-[NutriTrackAITests.HTTPClientTests testPlanRoundTripAndInsecureEndpointRejected]' passed (0.007 seconds).
+Test Case '-[NutriTrackAITests.HTTPClientTests testPreviousFailedReservationIsDifferentFromInProgress]' started.
+Test Case '-[NutriTrackAITests.HTTPClientTests testPreviousFailedReservationIsDifferentFromInProgress]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.HTTPClientTests testScannerChangedContextUsesNewIdempotencyKey]' started.
+Test Case '-[NutriTrackAITests.HTTPClientTests testScannerChangedContextUsesNewIdempotencyKey]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.HTTPClientTests testScannerDistinguishesRejectedEstimateFromUnavailableServer]' started.
+Test Case '-[NutriTrackAITests.HTTPClientTests testScannerDistinguishesRejectedEstimateFromUnavailableServer]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.HTTPClientTests testScannerExplainsExhaustedQuotaWithoutRetrying]' started.
+Test Case '-[NutriTrackAITests.HTTPClientTests testScannerExplainsExhaustedQuotaWithoutRetrying]' passed (0.002 seconds).
+Test Case '-[NutriTrackAITests.HTTPClientTests testScannerReadsTimeoutCodeAndKeepsUnknown502AsServerError]' started.
+Test Case '-[NutriTrackAITests.HTTPClientTests testScannerReadsTimeoutCodeAndKeepsUnknown502AsServerError]' passed (0.002 seconds).
+Test Suite 'HTTPClientTests' passed at 2026-10-11 22:58:34.998.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.020 (0.022) seconds
+Test Suite 'MigrationV5Tests' started at 2026-10-11 22:58:34.999.
+Test Case '-[NutriTrackAITests.MigrationV5Tests testV4StoreMigratesWithoutLosingProfileMealsAndHabits]' started.
+Test Case '-[NutriTrackAITests.MigrationV5Tests testV4StoreMigratesWithoutLosingProfileMealsAndHabits]' passed (0.849 seconds).
+Test Suite 'MigrationV5Tests' passed at 2026-10-11 22:58:35.848.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.849 (0.850) seconds
+Test Suite 'NutriTrackAITests' started at 2026-10-11 22:58:35.848.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testAppearanceAndFavoritesSurviveRestart]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testAppearanceAndFavoritesSurviveRestart]' passed (0.005 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testBundledRecipesAndPortionScaling]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testBundledRecipesAndPortionScaling]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testCompressionLimitsPixelsAndBytes]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testCompressionLimitsPixelsAndBytes]' passed (0.042 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testEstimateRejectsNegativeAndNonFood]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testEstimateRejectsNegativeAndNonFood]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testFoodContextValidation]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testFoodContextValidation]' passed (0.000 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testJSONRequiresMacrosAndUsesSnakeCase]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testJSONRequiresMacrosAndUsesSnakeCase]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testLocalDayHandlesDSTAndExclusiveMidnight]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testLocalDayHandlesDSTAndExclusiveMidnight]' passed (0.002 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testManualMealEditingAndDuplicateSave]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testManualMealEditingAndDuplicateSave]' passed (0.029 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testManualNumbersRejectPartialOrNonFiniteValues]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testManualNumbersRejectPartialOrNonFiniteValues]' passed (0.000 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testPlanEnergyAndMealBudgetsBalance]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testPlanEnergyAndMealBudgetsBalance]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testPlanRejectsDuplicateDaysBadCaloriesAndUpdatesBudgets]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testPlanRejectsDuplicateDaysBadCaloriesAndUpdatesBudgets]' passed (0.002 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testPlanSaveValidationAndRevisionDoNotEraseHistory]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testPlanSaveValidationAndRevisionDoNotEraseHistory]' passed (0.011 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testProfileUpdatePreservesChosenPlanAndCanRegenerate]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testProfileUpdatePreservesChosenPlanAndCanRegenerate]' passed (0.006 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testSwiftDataInverseAndCascade]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testSwiftDataInverseAndCascade]' passed (0.007 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testWaterValidationUndoAndCascade]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testWaterValidationUndoAndCascade]' passed (0.007 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testWidgetSnapshotDoesNotShowYesterdayAsTodayAndSchedulesTomorrow]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testWidgetSnapshotDoesNotShowYesterdayAsTodayAndSchedulesTomorrow]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testWorkoutCompletionIsIdempotentAndCanBeUndone]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testWorkoutCompletionIsIdempotentAndCanBeUndone]' passed (0.007 seconds).
+Test Case '-[NutriTrackAITests.NutriTrackAITests testWorkoutDraftSurvivesRestartAndIsIsolated]' started.
+Test Case '-[NutriTrackAITests.NutriTrackAITests testWorkoutDraftSurvivesRestartAndIsIsolated]' passed (0.004 seconds).
+Test Suite 'NutriTrackAITests' passed at 2026-10-11 22:58:35.980.
+	 Executed 18 tests, with 0 failures (0 unexpected) in 0.127 (0.131) seconds
+Test Suite 'ProfilePhotoTests' started at 2026-10-11 22:58:35.980.
+Test Case '-[NutriTrackAITests.ProfilePhotoTests testInvalidAndOversizedPhotosAreRejected]' started.
+2026-10-11 22:58:35.980260-0700 NutriTrackAI[55805:1527637] [NutriTrackAI] *** ERROR: CGImageSourceCreateThumbnailAtIndexEx:5504: create thumbnail at index failed
+2026-10-11 22:58:35.980315-0700 NutriTrackAI[55805:1527637] [NutriTrackAI] CGImageSourceCreateThumbnailAtIndexEx:5525: *** ERROR: CGImageSourceCreateThumbnailAtIndex[0] - 'n/a ' - failed to create thumbnail [1] {alw:1, abs: -1 tra:1 max:512}
+Test Case '-[NutriTrackAITests.ProfilePhotoTests testInvalidAndOversizedPhotosAreRejected]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.ProfilePhotoTests testPhotoDownsamplesAndRemovesLocationMetadata]' started.
+2026-10-11 22:58:36.005095-0700 NutriTrackAI[55805:1527637] [] CVPixelBufferCreate returned err -6680. width 600, height 300, pixel format RGBA, options [ExtendedPixelsRight = 0, ExtendedPixelsBottom = 0, BytesPerRowAlignment = 64]
+Test Case '-[NutriTrackAITests.ProfilePhotoTests testPhotoDownsamplesAndRemovesLocationMetadata]' passed (0.029 seconds).
+Test Case '-[NutriTrackAITests.ProfilePhotoTests testPhotoIsSavedPerProfileAndCanBeRemoved]' started.
+Test Case '-[NutriTrackAITests.ProfilePhotoTests testPhotoIsSavedPerProfileAndCanBeRemoved]' passed (0.005 seconds).
+Test Suite 'ProfilePhotoTests' passed at 2026-10-11 22:58:36.015.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.035 (0.036) seconds
+Test Suite 'ScannerV5Tests' started at 2026-10-11 22:58:36.015.
+Test Case '-[NutriTrackAITests.ScannerV5Tests testConnectionRejectsCredentialsAndUnexpectedPaths]' started.
+Test Case '-[NutriTrackAITests.ScannerV5Tests testConnectionRejectsCredentialsAndUnexpectedPaths]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.ScannerV5Tests testDemoRequiresExplicitOptIn]' started.
+Test Case '-[NutriTrackAITests.ScannerV5Tests testDemoRequiresExplicitOptIn]' passed (1.277 seconds).
+Test Case '-[NutriTrackAITests.ScannerV5Tests testUnconfiguredServiceDoesNotFabricateFood]' started.
+Test Case '-[NutriTrackAITests.ScannerV5Tests testUnconfiguredServiceDoesNotFabricateFood]' passed (0.002 seconds).
+Test Suite 'ScannerV5Tests' passed at 2026-10-11 22:58:37.296.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 1.280 (1.281) seconds
+Test Suite 'VisualV5Tests' started at 2026-10-11 22:58:37.296.
+Test Case '-[NutriTrackAITests.VisualV5Tests testRenderRequestedScreens]' started.
+Charts: Custom UnitPoint values are not supported in AxisValueLabel's anchor property. Please use leading, topLeading, center, etc.
+IOSurfaceClientSetSurfaceNotify failed e00002c7
+V5 visuals: [carpeta temporal de capturas del simulador]
+Test Case '-[NutriTrackAITests.VisualV5Tests testRenderRequestedScreens]' passed (9.953 seconds).
+Test Suite 'VisualV5Tests' passed at 2026-10-11 22:58:47.249.
+	 Executed 1 test, with 0 failures (0 unexpected) in 9.953 (9.953) seconds
+Test Suite 'WorkoutLocationTests' started at 2026-10-11 22:58:47.249.
+Test Case '-[NutriTrackAITests.WorkoutLocationTests testDraftLocationDoesNotChangeSavedPlanUntilSaveAndCanSwitchBack]' started.
+Test Case '-[NutriTrackAITests.WorkoutLocationTests testDraftLocationDoesNotChangeSavedPlanUntilSaveAndCanSwitchBack]' passed (0.007 seconds).
+Test Case '-[NutriTrackAITests.WorkoutLocationTests testHomeAndGymUseDifferentEquipmentAndRespectTime]' started.
+Test Case '-[NutriTrackAITests.WorkoutLocationTests testHomeAndGymUseDifferentEquipmentAndRespectTime]' passed (0.001 seconds).
+Test Case '-[NutriTrackAITests.WorkoutLocationTests testLegacyRequestAndSessionsDecodeWithoutNewRequiredFields]' started.
+Test Case '-[NutriTrackAITests.WorkoutLocationTests testLegacyRequestAndSessionsDecodeWithoutNewRequiredFields]' passed (0.001 seconds).
+Test Suite 'WorkoutLocationTests' passed at 2026-10-11 22:58:47.259.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.009 (0.009) seconds
+Test Suite 'NutriTrackAITests.xctest' passed at 2026-10-11 22:58:47.259.
+	 Executed 42 tests, with 0 failures (0 unexpected) in 12.392 (12.407) seconds
+Test Suite 'All tests' passed at 2026-10-11 22:58:47.259.
+	 Executed 42 tests, with 0 failures (0 unexpected) in 12.392 (12.407) seconds
+2026-10-11 22:58:47.590 xcodebuild[55531:1525351] [MT] IDETestOperationsObserverDebug: 41.659 elapsed -- Testing started completed.
+2026-10-11 22:58:47.590 xcodebuild[55531:1525351] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-11 22:58:47.590 xcodebuild[55531:1525351] [MT] IDETestOperationsObserverDebug: 41.659 sec, +41.659 sec -- end
+
+Test session results, code coverage, and logs:
+	/tmp/nutritrack-v57-build/Logs/Test/Test-NutriTrackAI-2026.10.11_22-57-58--0700.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

@@ -1,0 +1,13 @@
+Test Suite 'Selected tests' started at 2026-10-12 15:39:13.715.
+Test Suite 'NutriTrackAITests.xctest' started at 2026-10-12 15:39:13.717.
+Test Suite 'AccountV57Tests' started at 2026-10-12 15:39:13.717.
+Test Case '-[NutriTrackAITests.AccountV57Tests testPreviousDefaultAddressesMigrateButCustomAddressRemains]' started.
+Test Case '-[NutriTrackAITests.AccountV57Tests testPreviousDefaultAddressesMigrateButCustomAddressRemains]' passed (0.012 seconds).
+Test Suite 'AccountV57Tests' passed at 2026-10-12 15:39:13.731.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.012 (0.014) seconds
+Test Suite 'NutriTrackAITests.xctest' passed at 2026-10-12 15:39:13.731.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.012 (0.015) seconds
+Test Suite 'Selected tests' passed at 2026-10-12 15:39:13.732.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.012 (0.016) seconds
+Test session results, code coverage, and logs:
+** TEST SUCCEEDED **

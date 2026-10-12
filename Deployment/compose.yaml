@@ -1,0 +1,22 @@
+services:
+  backend:
+    image: node:24-bookworm-slim
+    working_dir: /app/Backend
+    command: ["node", "server.mjs"]
+    user: "node"
+    init: true
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: "8787"
+    ports:
+      - "127.0.0.1:8787:8787"
+    volumes:
+      - ./app:/app:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
